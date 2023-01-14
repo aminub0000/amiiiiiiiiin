@@ -7,8 +7,11 @@ connect fire using dependency
             <version>9.1.1</version>
  </dependency>
 
-//
+// variable public 
+
 Firestore firestore;
+
+//inside methode connection
 
 FileInputStream serviceAccount =null;
         try {
@@ -54,11 +57,8 @@ public void insertdata(String nom,String prenom,Map<String ,Object> data){
         Map<String ,Object> data = new HashMap<>();
         
         data.put("try1", "faild");
-         data.put("try2", "suscessfully");
-          data.put("try3", "suscessfully");
-           data.put("try4", "suscessfully");
-           
-        
-        
+         data.put("try2", "successfully");
+          data.put("try3", "successfully");
+           data.put("try4", "successfully");
         
         insertdata("collection1" , "document1",data );
