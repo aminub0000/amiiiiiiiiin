@@ -1,0 +1,64 @@
+connect fire using dependency
+
+//
+ <dependency>
+            <groupId>com.google.firebase</groupId>
+            <artifactId>firebase-admin</artifactId>
+            <version>9.1.1</version>
+ </dependency>
+
+//
+Firestore firestore;
+
+FileInputStream serviceAccount =null;
+        try {
+            serviceAccount = new FileInputStream("path serviceAccountkey.json");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(interface_our_project.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+           FirebaseOptions options = null;
+        try {
+            options = new FirebaseOptions.Builder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setDatabaseUrl("https://<DATABASENAME>.firebaseio.com/")
+                    .build();
+        } catch (IOException ex) {
+            Logger.getLogger(interface_our_project.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        FirebaseApp.initializeApp(options);
+        firestore =FirestoreClient.getFirestore();
+
+//insertdata 
+
+public void insertdata(String nom,String prenom,Map<String ,Object> data){
+
+            try{
+                if(firestore != null){
+                    DocumentReference docref =firestore.collection(nom).document(prenom);
+                    ApiFuture<WriteResult> result =docref.set(data);
+                    System.out.println(""+result.get().getUpdateTime());
+                    System.out.println("Successful");
+                }
+                else{
+                    System.out.println("our attempt is failed");
+                }
+        
+            }catch(Exception ex){
+        
+            }
+    }
+
+//
+        Map<String ,Object> data = new HashMap<>();
+        
+        data.put("try1", "faild");
+         data.put("try2", "suscessfully");
+          data.put("try3", "suscessfully");
+           data.put("try4", "suscessfully");
+           
+        
+        
+        
+        insertdata("collection1" , "document1",data );
